@@ -26,6 +26,8 @@ options.hardware_mapping = 'adafruit-hat-pwm'  # If you have an Adafruit HAT: 'a
 
 matrix = RGBMatrix(options = options)
 
+double_buffer = matrix.CreateFrameCanvas()
+
 # Make image fit our screen.
 # image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
 
@@ -46,9 +48,11 @@ def on_message(ws, message):
         ws.send(json.dumps({'type':'viewer-init'}))
     elif data['type'] == 'buffer':
         print('buffer received')
-        # decoded_image_data = base64.decodebytes(data['content'].encode('utf-8'))
-        # im = Image.frombytes('RGBA', (32, 32), decoded_image_data)
+        decoded_image_data = base64.decodebytes(data['content'].encode('utf-8'))
+        im = Image.frombytes('RGBA', (32, 32), decoded_image_data)
         # matrix.SetImage(im.convert('RGB'))
+        double_buffer.SetImage(im.convert('RGB'))
+        double_buffer = matrix.SwapOnVSync(double_buffer)
 
 
 def on_error(ws, error):
