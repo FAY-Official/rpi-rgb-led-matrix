@@ -48,7 +48,7 @@ def on_message(ws, message):
         decoded_image_data = base64.decodebytes(data['content'].encode('utf-8'))
         im = Image.frombytes('RGBA', (32, 32), decoded_image_data)
         # im.show()
-        matrix.SetImage(image.convert('RGB'))
+        matrix.SetImage(im.convert('RGB'))
 
 
 def on_error(ws, error):
