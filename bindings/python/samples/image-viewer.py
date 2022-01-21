@@ -47,7 +47,6 @@ def on_message(ws, message):
     elif data['type'] == 'buffer':
         decoded_image_data = base64.decodebytes(data['content'].encode('utf-8'))
         im = Image.frombytes('RGBA', (32, 32), decoded_image_data)
-        # im.show()
         matrix.SetImage(im.convert('RGB'))
 
 
@@ -61,7 +60,6 @@ def on_open(ws):
     print("Opened connection")
 
 if __name__ == "__main__":
-    websocket.enableTrace(True)
     ws = websocket.WebSocketApp("ws://192.168.1.6:8000",
                               on_open=on_open,
                               on_message=on_message,
