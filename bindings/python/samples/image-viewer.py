@@ -45,6 +45,7 @@ def on_message(ws, message):
     if data['type'] == 'user-init':
         ws.send(json.dumps({'type':'viewer-init'}))
     elif data['type'] == 'buffer':
+        print('buffer received')
         decoded_image_data = base64.decodebytes(data['content'].encode('utf-8'))
         im = Image.frombytes('RGBA', (32, 32), decoded_image_data)
         matrix.SetImage(im.convert('RGB'))
