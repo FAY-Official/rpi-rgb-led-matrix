@@ -25,20 +25,7 @@ options.parallel = 1
 options.hardware_mapping = 'adafruit-hat-pwm'  # If you have an Adafruit HAT: 'adafruit-hat'
 
 matrix = RGBMatrix(options = options)
-
-double_buffer = matrix.CreateFrameCanvas()
-
-# Make image fit our screen.
-# image.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
-
-# matrix.SetImage(image.convert('RGB'))
-
-# try:
-#     print("Press CTRL-C to stop.")
-#     while True:
-#         time.sleep(100)
-# except KeyboardInterrupt:
-#     sys.exit(0)
+# double_buffer = matrix.CreateFrameCanvas()
 
 rel.safe_read()
 
@@ -50,9 +37,9 @@ def on_message(ws, message):
         print('buffer received')
         decoded_image_data = base64.decodebytes(data['content'].encode('utf-8'))
         im = Image.frombytes('RGBA', (32, 32), decoded_image_data)
-        # matrix.SetImage(im.convert('RGB'))
-        double_buffer.SetImage(im.convert('RGB'))
-        double_buffer = matrix.SwapOnVSync(double_buffer)
+        matrix.SetImage(im.convert('RGB'))
+        # double_buffer.SetImage(im.convert('RGB'))
+        # double_buffer = matrix.SwapOnVSync(double_buffer)
 
 
 def on_error(ws, error):
