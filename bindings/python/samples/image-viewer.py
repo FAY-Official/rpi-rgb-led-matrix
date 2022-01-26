@@ -52,7 +52,7 @@ def on_open(ws):
     print("Opened connection")
 
 if __name__ == "__main__":
-    ws = websocket.WebSocketApp("ws://192.168.1.6:8000",
+    ws = websocket.WebSocketApp("ws://192.168.0.24:8000",
                               on_open=on_open,
                               on_message=on_message,
                               on_error=on_error,
